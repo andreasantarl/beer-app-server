@@ -11,21 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629185130) do
+ActiveRecord::Schema.define(version: 20160723175103) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "beers", force: :cascade do |t|
-    t.string   "beer_name",                            null: false
+    t.string   "beer_name",                                  null: false
     t.string   "company_name"
     t.string   "beer_style"
-    t.decimal  "abv",          precision: 3, scale: 1
+    t.decimal  "abv",                precision: 3, scale: 1
     t.string   "notes"
     t.integer  "rating"
     t.boolean  "drink_again"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
   create_table "examples", force: :cascade do |t|
@@ -40,11 +43,14 @@ ActiveRecord::Schema.define(version: 20160629185130) do
   create_table "profiles", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "username",   null: false
+    t.string   "username",           null: false
     t.string   "biography"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree

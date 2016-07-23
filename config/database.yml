@@ -6,9 +6,33 @@ default: &default
   pool: 5
 
 development:
-  <<: *default
-  database: <%= project_name %>_development
+  adapter: postgresql
+  encoding: utf8
+  database: beer-app-template_development
+  username: andreasantarlasci
+  password: PSQLikTTswr51
+  socket: /tmp/postgresql.sock
 
 test:
-  <<: *default
-  database: <%= project_name %>_test
+  adapter: postgresql
+  encoding: utf8
+  database: beer-app-template_test
+  username: andreasantarlasci
+  password: PSQLikTTswr51
+  socket: /tmp/postgresql.sock
+
+production:
+  adapter: postgresql
+  encoding: utf8
+  database: beer-app-template_production
+  username: andreasantarlasci
+  password: PSQLikTTswr51
+  socket: /tmp/postgresql.sock
+
+# development:
+#   <<: *default
+#   database: <%= project_name %>_development
+#
+# test:
+#   <<: *default
+#   database: <%= project_name %>_test

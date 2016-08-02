@@ -1,5 +1,5 @@
 class Beer < ActiveRecord::Base
-  has_many :tried_beers
+  has_many :tried_beers, dependent: :destroy
   has_many :profiles, through: :tried_beers
   # has_attached_file :photo,
   #                   :styles => { :medium => '300x300>',

@@ -43,6 +43,7 @@ class TriedBeersController < ApplicationController
   # DELETE /tried_beers/1
   # DELETE /tried_beers/1.json
   def destroy
+    # current_user.profile.beers.where(id: params[:id]).destroy
     @tried_beer.destroy
 
     head :no_content

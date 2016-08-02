@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729174406) do
+ActiveRecord::Schema.define(version: 20160801131847) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,16 +61,16 @@ ActiveRecord::Schema.define(version: 20160729174406) do
     t.datetime "photo_updated_at"
     t.string   "preferences"
     t.string   "favorites"
-    t.integer  "user_id"
+    t.integer  "user_id",            null: false
   end
 
   add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "tried_beers", force: :cascade do |t|
-    t.integer  "profile_id"
-    t.integer  "beer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "profile_id", null: false
+    t.integer  "beer_id",    null: false
   end
 
   add_index "tried_beers", ["beer_id"], name: "index_tried_beers_on_beer_id", using: :btree

@@ -1,5 +1,6 @@
 class Profile < ActiveRecord::Base
   belongs_to :user
+  validates :user, uniqueness: true
   has_many :tried_beers
   has_many :beers, through: :tried_beers
   # has_attached_file :photo,

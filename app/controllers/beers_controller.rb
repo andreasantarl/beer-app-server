@@ -1,12 +1,21 @@
-class BeersController < ApplicationController
+class BeersController < OpenReadController
+# class BeersController < ApplicationController
+
   before_action :set_beer, only: [:show, :update, :destroy]
-  before_action :authenticate, only: [:show, :update, :destroy]
+  before_action :authenticate, only: [:index, :show, :update, :destroy]
 
   # GET /beers
   # GET /beers.json
   def index
-    @beers = Beer.all
+    if current_user
+      @beers = current_user.profile.beers
+    else
+      @beers = Beer.all
+    end
+    # user = User.find(params[:id])
 
+    # @my_beers = @beers.findBy(@urrent_user)
+    # render json: @my_beers
     render json: @beers
   end
 
@@ -20,6 +29,9 @@ class BeersController < ApplicationController
   # POST /beers.json
   def create
     @beer = Beer.new(beer_params)
+    # current_user.beers << @beer
+
+
 
     if @beer.save
       render json: @beer, status: :created, location: @beer
@@ -55,7 +67,7 @@ class BeersController < ApplicationController
     end
 
     def beer_params
-      params.require(:beer).permit(:beer_name, :company_name, :beer_style, :abv,
+      params.require(:beers).permit(:beer_name, :company_name, :beer_style, :abv,
                               :appearance, :aroma, :palate, :flavor, :packaging,
                               :notes, :rating, :drink_again, :photo)
     end

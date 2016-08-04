@@ -1,3 +1,7 @@
+OTHER USER TOKEN:
+BAhJIiVmMTNiMjZhMjUxYWZiMDJjOGQ0YmE0OTM0MzFkOWFhMwY6BkVG--4780aaa42453345c11f5c8a1d1b1206ed4fd8c32
+
+
 curl --include --request POST http://localhost:3000/beers \
   --header "Content-Type: application/json" \
   --header "Authorization: Token token=BAhJIiVhZWU1MTEzOWNkNmVmM2ZiZDIwNmI0YzdjNTcyM2ExNQY6BkVG--f0e55289b84d0852eae0afdb845378c0337ca389"  \

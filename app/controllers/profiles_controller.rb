@@ -13,14 +13,18 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
-    render json: @profile
+    if current_user
+      render json: @profile
+    end
   end
 
   # POST /profiles
   # POST /profiles.json
   def create
-    @profile = Profile.new(profile_params)
-    @profile.user_id = current_user.id
+    if current_user
+      @profile = Profile.new(profile_params)
+      @profile.user_id = current_user.id
+    end
 
     if @profile.save
       render json: @profile, status: :created, location: @profile
@@ -32,7 +36,9 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
-    @profile = Profile.find(params[:id])
+    if current_user
+      @profile = Profile.find(params[:id])
+    end
 
     if @profile.update(profile_params)
       head :no_content
@@ -44,8 +50,9 @@ class ProfilesController < ApplicationController
   # DELETE /profiles/1
   # DELETE /profiles/1.json
   def destroy
-    @profile.destroy
-
+    if current_user
+      @profile.destroy
+    end
     head :no_content
   end
 

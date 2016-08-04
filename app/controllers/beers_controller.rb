@@ -29,13 +29,16 @@ class BeersController < OpenReadController
   # GET /beers/1.json
   def show
     # @beer = current_user.profile.beer.find(params[:id])
+    @beer = current_user.profile.beers.find(params[:id])
     render json: @beer
   end
 
   # POST /beers
   # POST /beers.json
   def create
-    @beer = Beer.new(beer_params)
+    if current_user
+      @beer = Beer.new(beer_params)
+    end
 
     if @beer.save
       render json: @beer, status: :created, location: @beer
@@ -47,9 +50,13 @@ class BeersController < OpenReadController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
-    # @beer = Beer.find(current_user.profile.beer.params[:id])
+
+    # @beers = current_user.profile.beers
+    # @beer = Beer.current_user.profile.beer.find(params[:id])
     # @beer = current_user.profile.beers
-    @beer = Beer.find(params[:id])
+    if current_user
+      @beer = Beer.find(params[:id])
+    end
 
     if @beer.update(beer_params)
       head :no_content
@@ -61,7 +68,9 @@ class BeersController < OpenReadController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
-    @beer.destroy
+    if current_user
+      @beer.destroy
+    end
 
     head :no_content
   end

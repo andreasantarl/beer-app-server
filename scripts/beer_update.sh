@@ -1,6 +1,6 @@
 curl --include --request PATCH http://localhost:3000/beers/3 \
   --header "Content-Type: application/json" \
-  --header "Authorization: Token token=BAhJIiVhZWU1MTEzOWNkNmVmM2ZiZDIwNmI0YzdjNTcyM2ExNQY6BkVG--f0e55289b84d0852eae0afdb845378c0337ca389"  \
+  --header "Authorization: Token token=BAhJIiVmMTNiMjZhMjUxYWZiMDJjOGQ0YmE0OTM0MzFkOWFhMwY6BkVG--4780aaa42453345c11f5c8a1d1b1206ed4fd8c32"  \
   --data '{
     "beer": {
       "id": 1,
@@ -12,7 +12,6 @@ curl --include --request PATCH http://localhost:3000/beers/3 \
       "rating": 4,
       "drink_again": true,
       "created_at": "20-May-2011 15:20:00:00:00",
-      "updated_at": "20-May-2011 15:20:00:00:00",
-      "make_private": false
+      "updated_at": "20-May-2011 15:20:00:00:00"
     }
   }'

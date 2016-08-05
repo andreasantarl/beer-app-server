@@ -22,6 +22,7 @@ class BeersController < OpenReadController
 # GET /all-beers.json
   def allbeers # rename me
     @beers = Beer.where(id: TriedBeer.where.not(profile: current_user.profile))
+
     render json: @beers
   end
 
@@ -38,6 +39,7 @@ class BeersController < OpenReadController
   def create
     if current_user
       @beer = Beer.new(beer_params)
+      current_user.beers << @beer
     end
 
     if @beer.save

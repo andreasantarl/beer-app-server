@@ -1,27 +1,18 @@
-class BeersController < OpenReadController
-# class BeersController < ApplicationController
-
+class BeersController < ProtectedController
   before_action :set_beer, only: [:show, :update, :destroy]
-  before_action :authenticate, only: [:index, :show, :create, :update, :destroy, :allbeers]
+
   # GET /beers
   # GET /beers.json
   def index
-    if current_user
-      @beers = current_user.profile.beers
-    # else
-    #   @beers = Beer.all
-    end
-    # user = User.find(params[:id])
+    @beers = current_user.profile.beers.order(updated_at: :desc)
 
-    # @my_beers = @beers.findBy(@urrent_user)
-    # render json: @my_beers
     render json: @beers
   end
 
 # GET /all-beers
 # GET /all-beers.json
   def allbeers # rename me
-    @beers = Beer.where(id: TriedBeer.where.not(profile: current_user.profile))
+    @beers = Beer.where.not(id: current_user.profile.beers).order(updated_at: :desc)
 
     render json: @beers
   end
@@ -29,19 +20,14 @@ class BeersController < OpenReadController
   # GET /beers/1
   # GET /beers/1.json
   def show
-    # @beer = current_user.profile.beer.find(params[:id])
-    @beer = current_user.profile.beers.find(params[:id])
     render json: @beer
   end
 
   # POST /beers
   # POST /beers.json
   def create
-    if current_user
-      @beer = Beer.new(beer_params)
-      current_user.beers << @beer
-    end
-
+    @beer = current_user.profile.beers.build(beer_params)
+    
     if @beer.save
       render json: @beer, status: :created, location: @beer
     else
@@ -52,14 +38,6 @@ class BeersController < OpenReadController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
-
-    # @beers = current_user.profile.beers
-    # @beer = Beer.current_user.profile.beer.find(params[:id])
-    # @beer = current_user.profile.beers
-    if current_user
-      @beer = Beer.find(params[:id])
-    end
-
     if @beer.update(beer_params)
       head :no_content
     else
@@ -70,17 +48,14 @@ class BeersController < OpenReadController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
-    if current_user
-      @beer.destroy
-    end
-
+    @beer.destroy
     head :no_content
   end
 
   private
 
     def set_beer
-      @beer = Beer.find(params[:id])
+      @beer = current_user.profile.beers.find(params[:id])
     end
 
     def beer_params
